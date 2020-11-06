@@ -1,25 +1,25 @@
 //This file was generated from (Academic) UPPAAL 4.1.4 (rev. 5535), March 2014
 
 /*
-il existe un chemin un jour o\u00f9 Character2 meurt
+il existe un chemin o\u00f9 le joueur 2 meurt
 doit \u00eatre satisfaite
 */
-E<> Character2.Mort
+E<> Gestionnaire_Vie.mort_j2
 
 /*
-il existe un chemin o\u00f9 un jour Character meurt
+il existe un chemin o\u00f9 le joueur 1 meurt
 doit \u00eatre satisfaite
 */
-E<> Character.Mort
+E<> Gestionnaire_Vie.mort_j1
 
 /*
-tout chemin m\u00e8ne un jour \u00e0 la Fin de Character2
+tout chemin m\u00e8ne un jour \u00e0 la mort du joueur 2
 ne doit pas \u00eatre satisfaite
 */
-A<> Character2.Mort
+A<> Gestionnaire_Vie.mort_j2
 
 /*
-tout chemin m\u00e8ne un jour \u00e0 la fin de Character
+tout chemin m\u00e8ne un jour \u00e0 la mort du joueur 1
 ne doit pas \u00eatre satisfaite !
 */
-A<> Character.Mort
+A<> Gestionnaire_Vie.mort_j1
