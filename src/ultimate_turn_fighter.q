@@ -1,0 +1,55 @@
+//This file was generated from (Academic) UPPAAL 4.1.4 (rev. 5535), March 2014
+
+/*
+
+*/
+E<> (cnt_tour <= 3 and (Gestionnaire_Vie.mort_j1 or Gestionnaire_Vie.mort_j2))
+
+/*
+tourne \u00e0 l'infini
+*/
+E<> (Joueur_1.atkk == 0 and Joueur_1.attaque and cnt_tour <= 1)
+
+/*
+
+*/
+E<> (cnt_tour <= 3 and Gestionnaire_Vie.mort_j2)
+
+/*
+tourne \u00e0 l'infini
+*/
+A[] (cnt_tour == 0 imply (not (Gestionnaire_Vie.mort_j1 or Gestionnaire_Vie.mort_j2)))
+
+/*
+il existe un chemin o\u00f9 un jour le joueur 2 ne meurt pas et le joueur 1 meurt
+*/
+E<>  (not Gestionnaire_Vie.mort_j2) and Gestionnaire_Vie.mort_j1
+
+/*
+il existe un chemin o\u00f9 un jour le joueur 1 ne meurt pas et le joueur 2 meurt
+*/
+E<>  (not Gestionnaire_Vie.mort_j1) and Gestionnaire_Vie.mort_j2
+
+/*
+il existe un chemin o\u00f9 le joueur 2 meurt
+doit \u00eatre satisfaite
+*/
+E<> Gestionnaire_Vie.mort_j2
+
+/*
+il existe un chemin o\u00f9 un jour le joueur 1 meurt
+doit \u00eatre satisfaite
+*/
+E<> Gestionnaire_Vie.mort_j1
+
+/*
+tout chemin m\u00e8ne un jour \u00e0 la mort du joueur 2
+ne doit pas \u00eatre satisfaite
+*/
+A<> Gestionnaire_Vie.mort_j2
+
+/*
+tout chemin m\u00e8ne un jour \u00e0 la mort du joueur 1
+ne doit pas \u00eatre satisfaite !
+*/
+A<> Gestionnaire_Vie.mort_j1
