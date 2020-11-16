@@ -20,15 +20,15 @@ int vie_j2 = 3;</declaration>
 		<location id="id0" x="-901" y="161">
 			<committed/>
 		</location>
-		<location id="id1" x="-459" y="-246">
+		<location id="id1" x="-425" y="-280">
 			<committed/>
 		</location>
 		<location id="id2" x="-731" y="161">
 			<name x="-765" y="187">defence_j1</name>
 			<committed/>
 		</location>
-		<location id="id3" x="-612" y="-246">
-			<name x="-646" y="-289">defence_j2</name>
+		<location id="id3" x="-671" y="-280">
+			<name x="-705" y="-323">defence_j2</name>
 			<committed/>
 		</location>
 		<location id="id4" x="-977" y="-221">
@@ -368,15 +368,47 @@ system G_vie, G_tour, J1, J2;
     </system>
 	<queries>
 		<query>
+			<formula>E&lt;&gt; G_vie.Victoire_J2 and G_vie.Victoire_J2
+			</formula>
+			<comment>Il n'existe pas de cas où les des Joueurs gagne
+[NOT SAT] [YES]
+			</comment>
+		</query>
+		<query>
+			<formula>E&lt;&gt;  (not G_vie.Victoire_J2) and G_vie.Victoire_J1
+			</formula>
+			<comment>Il existe un chemin où c'est la victoire de J2 et pas de J1
+[SAT] [YES]
+			</comment>
+		</query>
+		<query>
+			<formula>A[] (G_tour.cpt_tour &lt; 3 imply (not (G_vie.Victoire_J1 or G_vie.Victoire_J2)))
+			</formula>
+			<comment>Dans tout chemin, il n'y a jamais de victoire si le compteur de tour est inférieur à 3
+[SAT] [YES]
+			</comment>
+		</query>
+		<query>
+			<formula>E&lt;&gt; (G_tour.cpt_tour &gt;= 3 and (G_vie.Victoire_J2))
+
+			</formula>
+			<comment>Est ce que le joueur 2 peut gagner 
+[NOT SAT] 
+Effectivement le fait que le joueur 1 fait une action en premier bloque la victoire de J2 (version avec attaque et defense)
+			</comment>
+		</query>
+		<query>
 			<formula>A&lt;&gt; (G_tour.cpt_tour &gt;= 3 and (G_vie.Victoire_J1 or G_vie.Victoire_J2))
 			</formula>
 			<comment>Tout chemin, au bout de NB_POINT_DE_VIE tour menera à la victoire d'un des joueurs
+[SAT] [YES]
 			</comment>
 		</query>
 		<query>
 			<formula>E&lt;&gt; (G_tour.cpt_tour &lt; 3 and (G_vie.Victoire_J1 or G_vie.Victoire_J2))
 			</formula>
 			<comment>Il n'existe pas de chemin où il y aura de victoire en moins de NB_POINT_DE_VIE tour
+[NOT SAT] [YES]
 			</comment>
 		</query>
 		<query>
