@@ -129,12 +129,10 @@ clock clk_paralisation;</declaration>
 		<location id="id4" x="-221" y="221">
 			<name x="-238" y="238">Paralyser</name>
 			<label kind="invariant" x="-238" y="255">clk_paralisation &lt;= 2</label>
-			<urgent/>
 		</location>
 		<location id="id5" x="-629" y="-8">
 			<name x="-774" y="-34">Recuperation</name>
 			<label kind="invariant" x="-833" y="-17">clk_reload_big_atk &lt;= 2</label>
-			<urgent/>
 		</location>
 		<init ref="id3"/>
 		<transition>
@@ -232,12 +230,10 @@ clock clk_paralisation;</declaration>
 		<location id="id7" x="-221" y="221">
 			<name x="-238" y="238">Paralyser</name>
 			<label kind="invariant" x="-238" y="255">clk_paralisation &lt;= 2</label>
-			<urgent/>
 		</location>
 		<location id="id8" x="-629" y="-8">
 			<name x="-790" y="-51">Recuperation</name>
 			<label kind="invariant" x="-841" y="-34">clk_reload_big_atk &lt;= 2</label>
-			<urgent/>
 		</location>
 		<init ref="id6"/>
 		<transition>
@@ -323,87 +319,95 @@ pp_big_atk = pp_big_atk - 1</label>
 		<declaration>
 int vie = 10;
 clock clk_freeze;</declaration>
-		<location id="id9" x="-382" y="68">
-			<name x="-509" y="26">Geler</name>
-			<label kind="invariant" x="-586" y="43">clk_freeze &lt;= 3 and vie &gt; 0</label>
-			<urgent/>
+		<location id="id9" x="-382" y="-170">
 		</location>
-		<location id="id10" x="76" y="68">
+		<location id="id10" x="-382" y="68">
+			<name x="-433" y="85">Geler</name>
+			<label kind="invariant" x="-493" y="102">clk_freeze &lt;= 3</label>
+		</location>
+		<location id="id11" x="76" y="-178">
+		</location>
+		<location id="id12" x="76" y="68">
 			<name x="93" y="34">Passif</name>
-			<label kind="invariant" x="93" y="51">vie &gt; 0</label>
 		</location>
-		<location id="id11" x="-153" y="-76">
-			<name x="-163" y="-110">Mort</name>
+		<location id="id13" x="-170" y="-357">
+			<name x="-180" y="-391">Mort</name>
+			<committed/>
 		</location>
-		<init ref="id10"/>
-		<transition>
-			<source ref="id10"/>
-			<target ref="id11"/>
-			<label kind="guard" x="-85" y="-93">vie &lt;= 0</label>
-			<label kind="synchronisation" x="-8" y="-93">Victoire_J1!</label>
-			<nail x="76" y="-76"/>
-		</transition>
+		<init ref="id12"/>
 		<transition>
 			<source ref="id9"/>
-			<target ref="id11"/>
-			<label kind="guard" x="-374" y="-93">vie &lt;= 0</label>
-			<label kind="synchronisation" x="-297" y="-93">Victoire_J1!</label>
-			<nail x="-382" y="-76"/>
+			<target ref="id10"/>
+			<label kind="guard" x="-272" y="-93">vie &gt; 0</label>
+			<nail x="-280" y="-170"/>
+			<nail x="-280" y="17"/>
+		</transition>
+		<transition>
+			<source ref="id11"/>
+			<target ref="id12"/>
+			<label kind="guard" x="-76" y="-93">vie &gt; 0</label>
+			<nail x="-17" y="-178"/>
+			<nail x="-17" y="17"/>
 		</transition>
 		<transition>
 			<source ref="id10"/>
 			<target ref="id9"/>
-			<label kind="guard" x="-187" y="119">vie &gt; 0</label>
-			<label kind="synchronisation" x="-297" y="119">atk_freeze_J1?</label>
-			<label kind="assignment" x="-127" y="119">clk_freeze := 0</label>
+			<label kind="synchronisation" x="-501" y="-119">atk_J1?</label>
+			<label kind="assignment" x="-501" y="-93">vie = vie - 2</label>
+			<nail x="-382" y="8"/>
+			<nail x="-510" y="8"/>
+			<nail x="-510" y="-127"/>
+			<nail x="-382" y="-127"/>
+		</transition>
+		<transition>
+			<source ref="id10"/>
+			<target ref="id9"/>
+			<label kind="synchronisation" x="-671" y="-153">big_atk_J1?</label>
+			<label kind="assignment" x="-671" y="-127">vie = vie - 4</label>
+			<nail x="-399" y="68"/>
+			<nail x="-578" y="68"/>
+			<nail x="-578" y="-170"/>
+		</transition>
+		<transition>
+			<source ref="id9"/>
+			<target ref="id13"/>
+			<label kind="guard" x="-331" y="-306">vie &lt;= 0</label>
+		</transition>
+		<transition>
+			<source ref="id11"/>
+			<target ref="id13"/>
+			<label kind="guard" x="-85" y="-314">vie &lt;= 0</label>
+		</transition>
+		<transition>
+			<source ref="id12"/>
+			<target ref="id11"/>
+			<label kind="synchronisation" x="314" y="-161">atk_J1?</label>
+			<label kind="assignment" x="306" y="-136">vie = vie - 1</label>
+			<nail x="297" y="68"/>
+			<nail x="297" y="-178"/>
+		</transition>
+		<transition>
+			<source ref="id12"/>
+			<target ref="id11"/>
+			<label kind="synchronisation" x="85" y="-127">big_atk_J1?</label>
+			<label kind="assignment" x="76" y="-102">vie = vie - 3</label>
+			<nail x="76" y="17"/>
+			<nail x="170" y="17"/>
+			<nail x="170" y="-136"/>
+			<nail x="76" y="-136"/>
+		</transition>
+		<transition>
+			<source ref="id12"/>
+			<target ref="id10"/>
+			<label kind="synchronisation" x="-272" y="144">atk_freeze_J1?</label>
+			<label kind="assignment" x="-127" y="153">clk_freeze := 0</label>
 			<nail x="-17" y="144"/>
 			<nail x="-306" y="144"/>
 		</transition>
 		<transition>
-			<source ref="id9"/>
-			<target ref="id10"/>
+			<source ref="id10"/>
+			<target ref="id12"/>
 			<label kind="guard" x="-221" y="42">clk_freeze &gt;= 3</label>
-		</transition>
-		<transition>
-			<source ref="id9"/>
-			<target ref="id9"/>
-			<label kind="guard" x="-612" y="161">vie &gt; 0</label>
-			<label kind="synchronisation" x="-612" y="144">big_atk_J1?</label>
-			<label kind="assignment" x="-612" y="178">vie := vie - 4</label>
-			<nail x="-510" y="212"/>
-			<nail x="-620" y="212"/>
-			<nail x="-620" y="127"/>
-		</transition>
-		<transition>
-			<source ref="id9"/>
-			<target ref="id9"/>
-			<label kind="guard" x="-433" y="221">vie &gt; 0</label>
-			<label kind="synchronisation" x="-433" y="204">atk_J1?</label>
-			<label kind="assignment" x="-433" y="238">vie := vie - 2</label>
-			<nail x="-450" y="212"/>
-			<nail x="-450" y="263"/>
-			<nail x="-323" y="263"/>
-			<nail x="-323" y="204"/>
-		</transition>
-		<transition>
-			<source ref="id10"/>
-			<target ref="id10"/>
-			<label kind="guard" x="-33" y="238">vie &gt; 0</label>
-			<label kind="synchronisation" x="-33" y="221">big_atk_J1?</label>
-			<label kind="assignment" x="-33" y="255">vie := vie - 3</label>
-			<nail x="68" y="280"/>
-			<nail x="-42" y="280"/>
-			<nail x="-42" y="212"/>
-		</transition>
-		<transition>
-			<source ref="id10"/>
-			<target ref="id10"/>
-			<label kind="guard" x="144" y="238">vie &gt; 0</label>
-			<label kind="synchronisation" x="144" y="221">atk_J1?</label>
-			<label kind="assignment" x="144" y="255">vie = vie - 1</label>
-			<nail x="246" y="212"/>
-			<nail x="246" y="280"/>
-			<nail x="135" y="280"/>
 		</transition>
 	</template>
 	<template>
@@ -411,87 +415,95 @@ clock clk_freeze;</declaration>
 		<declaration>
 int vie = 10;
 clock clk_freeze;</declaration>
-		<location id="id12" x="76" y="68">
+		<location id="id14" x="76" y="-178">
+		</location>
+		<location id="id15" x="-382" y="-170">
+		</location>
+		<location id="id16" x="76" y="68">
 			<name x="93" y="34">Passif</name>
-			<label kind="invariant" x="93" y="51">vie &gt; 0</label>
 		</location>
-		<location id="id13" x="-153" y="-76">
-			<name x="-163" y="-110">Mort</name>
+		<location id="id17" x="-170" y="-357">
+			<name x="-180" y="-391">Mort</name>
+			<committed/>
 		</location>
-		<location id="id14" x="-382" y="68">
-			<name x="-518" y="34">Geler</name>
-			<label kind="invariant" x="-603" y="51">clk_freeze &lt;= 3 and vie &gt; 0</label>
-			<urgent/>
+		<location id="id18" x="-382" y="68">
+			<name x="-433" y="85">Geler</name>
+			<label kind="invariant" x="-493" y="102">clk_freeze &lt;= 3</label>
 		</location>
-		<init ref="id12"/>
+		<init ref="id16"/>
 		<transition>
-			<source ref="id12"/>
-			<target ref="id13"/>
-			<label kind="guard" x="-85" y="-93">vie &lt;= 0</label>
-			<label kind="synchronisation" x="-8" y="-93">Victoire_J2!</label>
-			<nail x="76" y="-76"/>
+			<source ref="id15"/>
+			<target ref="id18"/>
+			<label kind="guard" x="-272" y="-93">vie &gt; 0</label>
+			<nail x="-280" y="-170"/>
+			<nail x="-280" y="17"/>
 		</transition>
 		<transition>
 			<source ref="id14"/>
-			<target ref="id13"/>
-			<label kind="guard" x="-374" y="-93">vie &lt;= 0</label>
-			<label kind="synchronisation" x="-297" y="-93">Victoire_J2!</label>
-			<nail x="-382" y="-76"/>
+			<target ref="id16"/>
+			<label kind="guard" x="-76" y="-93">vie &gt; 0</label>
+			<nail x="-17" y="-178"/>
+			<nail x="-17" y="17"/>
 		</transition>
 		<transition>
-			<source ref="id12"/>
+			<source ref="id18"/>
+			<target ref="id15"/>
+			<label kind="synchronisation" x="-501" y="-119">atk_J2?</label>
+			<label kind="assignment" x="-501" y="-93">vie = vie - 2</label>
+			<nail x="-382" y="8"/>
+			<nail x="-510" y="8"/>
+			<nail x="-510" y="-127"/>
+			<nail x="-382" y="-127"/>
+		</transition>
+		<transition>
+			<source ref="id18"/>
+			<target ref="id15"/>
+			<label kind="synchronisation" x="-671" y="-153">big_atk_J2?</label>
+			<label kind="assignment" x="-671" y="-127">vie = vie - 4</label>
+			<nail x="-399" y="68"/>
+			<nail x="-578" y="68"/>
+			<nail x="-578" y="-170"/>
+		</transition>
+		<transition>
+			<source ref="id15"/>
+			<target ref="id17"/>
+			<label kind="guard" x="-331" y="-306">vie &lt;= 0</label>
+		</transition>
+		<transition>
+			<source ref="id14"/>
+			<target ref="id17"/>
+			<label kind="guard" x="-85" y="-314">vie &lt;= 0</label>
+		</transition>
+		<transition>
+			<source ref="id16"/>
 			<target ref="id14"/>
-			<label kind="guard" x="-187" y="119">vie &gt; 0</label>
-			<label kind="synchronisation" x="-297" y="119">atk_freeze_J2?</label>
-			<label kind="assignment" x="-127" y="119">clk_freeze := 0</label>
+			<label kind="synchronisation" x="314" y="-161">atk_J2?</label>
+			<label kind="assignment" x="306" y="-136">vie = vie - 1</label>
+			<nail x="297" y="68"/>
+			<nail x="297" y="-178"/>
+		</transition>
+		<transition>
+			<source ref="id16"/>
+			<target ref="id14"/>
+			<label kind="synchronisation" x="85" y="-127">big_atk_J2?</label>
+			<label kind="assignment" x="76" y="-102">vie = vie - 3</label>
+			<nail x="76" y="17"/>
+			<nail x="170" y="17"/>
+			<nail x="170" y="-136"/>
+			<nail x="76" y="-136"/>
+		</transition>
+		<transition>
+			<source ref="id16"/>
+			<target ref="id18"/>
+			<label kind="synchronisation" x="-272" y="144">atk_freeze_J2?</label>
+			<label kind="assignment" x="-127" y="153">clk_freeze := 0</label>
 			<nail x="-17" y="144"/>
 			<nail x="-306" y="144"/>
 		</transition>
 		<transition>
-			<source ref="id14"/>
-			<target ref="id12"/>
+			<source ref="id18"/>
+			<target ref="id16"/>
 			<label kind="guard" x="-221" y="42">clk_freeze &gt;= 3</label>
-		</transition>
-		<transition>
-			<source ref="id14"/>
-			<target ref="id14"/>
-			<label kind="guard" x="-612" y="161">vie &gt; 0</label>
-			<label kind="synchronisation" x="-612" y="144">big_atk_J2?</label>
-			<label kind="assignment" x="-612" y="178">vie := vie - 4</label>
-			<nail x="-510" y="212"/>
-			<nail x="-620" y="212"/>
-			<nail x="-620" y="127"/>
-		</transition>
-		<transition>
-			<source ref="id14"/>
-			<target ref="id14"/>
-			<label kind="guard" x="-433" y="221">vie &gt; 0</label>
-			<label kind="synchronisation" x="-433" y="204">atk_J2?</label>
-			<label kind="assignment" x="-433" y="238">vie := vie - 2</label>
-			<nail x="-450" y="212"/>
-			<nail x="-450" y="263"/>
-			<nail x="-323" y="263"/>
-			<nail x="-323" y="204"/>
-		</transition>
-		<transition>
-			<source ref="id12"/>
-			<target ref="id12"/>
-			<label kind="guard" x="-33" y="238">vie &gt; 0</label>
-			<label kind="synchronisation" x="-33" y="221">big_atk_J2?</label>
-			<label kind="assignment" x="-33" y="255">vie := vie - 3</label>
-			<nail x="68" y="280"/>
-			<nail x="-42" y="280"/>
-			<nail x="-42" y="212"/>
-		</transition>
-		<transition>
-			<source ref="id12"/>
-			<target ref="id12"/>
-			<label kind="guard" x="144" y="238">vie &gt; 0</label>
-			<label kind="synchronisation" x="144" y="221">atk_J2?</label>
-			<label kind="assignment" x="144" y="255">vie = vie - 1</label>
-			<nail x="246" y="212"/>
-			<nail x="246" y="280"/>
-			<nail x="135" y="280"/>
 		</transition>
 	</template>
 	<system>// Place template instantiations here.
