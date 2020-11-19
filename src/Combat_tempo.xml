@@ -10,6 +10,8 @@ chan big_atk_J1, big_atk_J2;
 chan atk_freeze_J1, atk_freeze_J2;
 chan atk_paralisation_J1, atk_paralisation_J2;
 
+clock clk;
+
 </declaration>
 	<template>
 		<name>Strategie_J2_B</name>
@@ -123,8 +125,12 @@ clock clk_reload_big_atk;
 clock clk_reload_freeze;
 clock clk_reload_atk;
 clock clk_reload_paralisation;
-clock clk_paralisation;</declaration>
+clock clk_paralisation;
+
+//horloge forçant l'attaque
+clock clk_global;</declaration>
 		<location id="id3" x="93" y="-8">
+			<label kind="invariant" x="119" y="8">clk_global &lt;=4</label>
 		</location>
 		<location id="id4" x="-221" y="221">
 			<name x="-238" y="238">Paralyser</name>
@@ -143,7 +149,8 @@ and
 clk_reload_paralisation &gt; 4</label>
 			<label kind="synchronisation" x="-280" y="-365">atk_paralisation_J2!</label>
 			<label kind="assignment" x="-280" y="-255">pp_paralisation = pp_paralisation - 1,
-clk_reload_paralisation = 0</label>
+clk_reload_paralisation = 0,
+clk_global = 0</label>
 			<nail x="-297" y="-195"/>
 			<nail x="-297" y="-382"/>
 			<nail x="25" y="-382"/>
@@ -157,7 +164,8 @@ and
 clk_reload_freeze &gt; 3</label>
 			<label kind="synchronisation" x="204" y="-68">atk_freeze_J2!</label>
 			<label kind="assignment" x="510" y="-85">pp_freeze = pp_freeze - 1,
-clk_reload_freeze = 0</label>
+clk_reload_freeze = 0,
+clk_global = 0</label>
 			<nail x="204" y="-102"/>
 			<nail x="748" y="-102"/>
 			<nail x="748" y="-8"/>
@@ -166,6 +174,7 @@ clk_reload_freeze = 0</label>
 			<source ref="id4"/>
 			<target ref="id3"/>
 			<label kind="guard" x="187" y="195">clk_paralisation &gt;= 2</label>
+			<label kind="assignment" x="238" y="229">clk_global = 0</label>
 			<nail x="348" y="221"/>
 			<nail x="348" y="102"/>
 			<nail x="144" y="102"/>
@@ -189,6 +198,7 @@ clk_reload_freeze = 0</label>
 			<source ref="id5"/>
 			<target ref="id3"/>
 			<label kind="guard" x="-620" y="-195">clk_reload_big_atk &gt;=2</label>
+			<label kind="assignment" x="-611" y="-170">clk_global = 0</label>
 			<nail x="-629" y="-170"/>
 			<nail x="-323" y="-170"/>
 		</transition>
@@ -207,7 +217,8 @@ pp_big_atk = pp_big_atk - 1</label>
 			<target ref="id3"/>
 			<label kind="guard" x="102" y="-331">clk_reload_atk &gt; 2</label>
 			<label kind="synchronisation" x="102" y="-357">atk_J2!</label>
-			<label kind="assignment" x="102" y="-306">clk_reload_atk = 0</label>
+			<label kind="assignment" x="102" y="-306">clk_reload_atk = 0,
+clk_global = 0</label>
 			<nail x="85" y="-382"/>
 			<nail x="289" y="-382"/>
 			<nail x="289" y="-229"/>
@@ -224,8 +235,12 @@ clock clk_reload_big_atk;
 clock clk_reload_freeze;
 clock clk_reload_atk;
 clock clk_reload_paralisation;
-clock clk_paralisation;</declaration>
+clock clk_paralisation;
+
+//horloge forçant l'attaque
+clock clk_global;</declaration>
 		<location id="id6" x="93" y="-8">
+			<label kind="invariant" x="119" y="0">clk_global &lt;=4</label>
 		</location>
 		<location id="id7" x="-221" y="221">
 			<name x="-238" y="238">Paralyser</name>
@@ -244,7 +259,8 @@ and
 clk_reload_paralisation &gt; 4</label>
 			<label kind="synchronisation" x="-280" y="-365">atk_paralisation_J1!</label>
 			<label kind="assignment" x="-280" y="-255">pp_paralisation = pp_paralisation - 1,
-clk_reload_paralisation = 0</label>
+clk_reload_paralisation = 0,
+clk_global = 0</label>
 			<nail x="-297" y="-195"/>
 			<nail x="-297" y="-382"/>
 			<nail x="25" y="-382"/>
@@ -258,7 +274,8 @@ and
 clk_reload_freeze &gt; 3</label>
 			<label kind="synchronisation" x="204" y="-68">atk_freeze_J1!</label>
 			<label kind="assignment" x="510" y="-85">pp_freeze = pp_freeze - 1,
-clk_reload_freeze = 0</label>
+clk_reload_freeze = 0,
+clk_global = 0</label>
 			<nail x="204" y="-102"/>
 			<nail x="748" y="-102"/>
 			<nail x="748" y="-8"/>
@@ -267,6 +284,7 @@ clk_reload_freeze = 0</label>
 			<source ref="id7"/>
 			<target ref="id6"/>
 			<label kind="guard" x="187" y="195">clk_paralisation &gt;= 2</label>
+			<label kind="assignment" x="246" y="229">clk_global = 0</label>
 			<nail x="348" y="221"/>
 			<nail x="348" y="102"/>
 			<nail x="144" y="102"/>
@@ -290,6 +308,7 @@ clk_reload_freeze = 0</label>
 			<source ref="id8"/>
 			<target ref="id6"/>
 			<label kind="guard" x="-620" y="-195">clk_reload_big_atk &gt;=2</label>
+			<label kind="assignment" x="-611" y="-170">clk_global = 0</label>
 			<nail x="-629" y="-170"/>
 			<nail x="-323" y="-170"/>
 		</transition>
@@ -308,7 +327,8 @@ pp_big_atk = pp_big_atk - 1</label>
 			<target ref="id6"/>
 			<label kind="guard" x="102" y="-331">clk_reload_atk &gt; 2</label>
 			<label kind="synchronisation" x="102" y="-357">atk_J1!</label>
-			<label kind="assignment" x="102" y="-306">clk_reload_atk = 0</label>
+			<label kind="assignment" x="102" y="-306">clk_reload_atk = 0,
+clk_global = 0</label>
 			<nail x="85" y="-382"/>
 			<nail x="289" y="-382"/>
 			<nail x="289" y="-229"/>
@@ -516,12 +536,112 @@ Etat_J1 = Etat_Joueur_1();
 Etat_J2 = Etat_Joueur_2_A();
 
 Strat_J1 = Strategie_J1();
-Strat_J2_A = Strategie_J2_A();
-Strat_J2_B = Strategie_J2_B();
+Strat_J2 = Strategie_J2_A();
+//Strat_J2_B = Strategie_J2_B();
 
 // List one or more processes to be composed into a system.
-system Etat_J1, Etat_J2, Strat_J1, Strat_J2_A;
+system Etat_J1, Etat_J2, Strat_J1, Strat_J2;
     </system>
 	<queries>
+		<query>
+			<formula>E&lt;&gt; clk &lt;=8 &amp;&amp; Etat_J2.Mort
+			</formula>
+			<comment>[NOT SAT]
+			</comment>
+		</query>
+		<query>
+			<formula>E&lt;&gt; clk &lt;=1 &amp;&amp; Etat_J2.Mort
+			</formula>
+			<comment>[NOT SAT]
+			</comment>
+		</query>
+		<query>
+			<formula>E&lt;&gt; Etat_J2.Mort and Etat_J2.vie &gt; 0
+			</formula>
+			<comment>[NOT SAT]
+			</comment>
+		</query>
+		<query>
+			<formula>A&lt;&gt; Etat_J1.Mort or Etat_J2.Mort
+
+			</formula>
+			<comment>[trop long]
+			</comment>
+		</query>
+		<query>
+			<formula>E&lt;&gt; Etat_J2.Mort and Strat_J1.pp_freeze == 1 and Strat_J1.pp_paralisation == 1 and Strat_J1.pp_big_atk == 1
+			</formula>
+			<comment>victoire du joueur 1 sans utiliser de atk spécial
+[SAT]
+			</comment>
+		</query>
+		<query>
+			<formula>E&lt;&gt; Etat_J2.Mort and Strat_J1.pp_big_atk == 1
+			</formula>
+			<comment>[SAT]
+			</comment>
+		</query>
+		<query>
+			<formula>E&lt;&gt; Etat_J2.Mort and Strat_J1.pp_paralisation == 1
+			</formula>
+			<comment>[SAT]
+			</comment>
+		</query>
+		<query>
+			<formula>E&lt;&gt; Etat_J2.Mort and Strat_J1.pp_freeze == 1
+			</formula>
+			<comment>Victoire du joueur 1 sans utiliser l'attaque freeze
+[SAT]
+			</comment>
+		</query>
+		<query>
+			<formula>E&lt;&gt; Etat_J2.Mort and Etat_J2.vie == 10
+			</formula>
+			<comment>Mort du joueur 2 avec tous ces point de vie 
+[NOT SAT]
+			</comment>
+		</query>
+		<query>
+			<formula>E&lt;&gt; Etat_J2.Mort and Etat_J1.vie == 1
+			</formula>
+			<comment>Un cas où le joueur 1 gagne avec un point de vie restant
+[SAT]
+			</comment>
+		</query>
+		<query>
+			<formula>E&lt;&gt; not Etat_J1.Mort and not Etat_J2.Mort and deadlock
+			</formula>
+			<comment>[TROP LONG]
+			</comment>
+		</query>
+		<query>
+			<formula>E&lt;&gt; Etat_J2.Mort and not Etat_J1.Mort
+			</formula>
+			<comment>Le joueur 1 meurt et pas l'autre
+[SAT]
+			</comment>
+		</query>
+		<query>
+			<formula>E&lt;&gt; Etat_J1.Mort and Etat_J2.Mort
+
+			</formula>
+			<comment>Un cas où les deux sont mort
+[NOT SAT]
+			</comment>
+		</query>
+		<query>
+			<formula>E&lt;&gt; Etat_J2.Mort
+			</formula>
+			<comment>Victoire du joueur 1 possible 
+[SAT]
+			</comment>
+		</query>
+		<query>
+			<formula>E&lt;&gt; Etat_J1.Mort
+			</formula>
+			<comment>Victoire du joueur 2 possible 
+[SAT]
+			</comment>
+		</query>
 	</queries>
 </nta>
