@@ -320,12 +320,14 @@ pp_big_atk = pp_big_atk - 1</label>
 int vie = 10;
 clock clk_freeze;</declaration>
 		<location id="id9" x="-382" y="-170">
+			<committed/>
 		</location>
 		<location id="id10" x="-382" y="68">
 			<name x="-433" y="85">Geler</name>
 			<label kind="invariant" x="-493" y="102">clk_freeze &lt;= 3</label>
 		</location>
 		<location id="id11" x="76" y="-178">
+			<committed/>
 		</location>
 		<location id="id12" x="76" y="68">
 			<name x="93" y="34">Passif</name>
@@ -416,8 +418,10 @@ clock clk_freeze;</declaration>
 int vie = 10;
 clock clk_freeze;</declaration>
 		<location id="id14" x="76" y="-178">
+			<committed/>
 		</location>
 		<location id="id15" x="-382" y="-170">
+			<committed/>
 		</location>
 		<location id="id16" x="76" y="68">
 			<name x="93" y="34">Passif</name>
