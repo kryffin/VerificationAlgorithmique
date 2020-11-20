@@ -29,7 +29,7 @@ clock clk_paralyzed_status; //clock for the paralyze status duration
 clock clk_global; //clock used to force an action from the player</declaration>
 		<location id="id0" x="93" y="-8">
 			<name x="59" y="0">Idle</name>
-			<label kind="invariant" x="119" y="0">clk_global &lt;=4</label>
+			<label kind="invariant" x="119" y="0">clk_global &lt;= 4</label>
 		</location>
 		<location id="id1" x="-221" y="221">
 			<name x="-238" y="238">Paralyzed</name>
@@ -151,7 +151,7 @@ clock clk_global;</declaration>
 		</location>
 		<location id="id5" x="-629" y="-8">
 			<name x="-688" y="-17">Tired</name>
-			<label kind="invariant" x="-765" y="0">clk_strong_atk &lt;= 2</label>
+			<label kind="invariant" x="-782" y="0">clk_strong_atk &lt;= 2</label>
 		</location>
 		<init ref="id3"/>
 		<transition>
@@ -447,7 +447,7 @@ p2m = Player_2_Manager();
 
 // List one or more processes to be composed into a system.
 system p1, p2, p1m, p2m;
-    </system>
+</system>
 	<queries>
 		<query>
 			<formula>E&lt;&gt; p2m.Lost and p2m.hp &gt; 0

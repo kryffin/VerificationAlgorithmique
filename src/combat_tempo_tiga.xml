@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_1.dtd'><nta><declaration>/// Global variables
+
+chan atk_P1, atk_P2; //basic attack launched from a player
+chan strong_atk_P1, strong_atk_P2; //strong attack launched from a player
+chan freeze_P1, freeze_P2; //freeze action launched from a player
+chan paralyze_P1, paralyze_P2; //paralyze action launched from a player
+
+clock clk;</declaration><template><name x="5" y="5">Player_2</name><declaration>/// Player_2
+
+int pp_paralyze = 1; //power points : number of uses of the paralyze action
+int pp_freeze = 1; //power points : number of uses of the freeze action
+int pp_strong_atk = 1; //power points : number of uses of the strong attack action
+
+clock clk_strong_atk; //clock for the strong attack cooldown
+clock clk_freeze; //clock for the freeze cooldown
+clock clk_atk; //clock for the attack cooldown
+clock clk_paralyze; //clock for the paralyze cooldown
+//nb. A cooldown refers to the amount of time a user must wait before repeating a recently completed action. Cooldowns are often used in video games for balancing purposes.
+
+clock clk_paralyzed_status; //clock for the paralyze status duration
+
+clock clk_global; //clock used to force an action from the player</declaration><location id="id0" x="-808" y="-56"><name x="-856" y="-48">Tired</name><label kind="invariant" x="-944" y="-32">clk_strong_atk &lt;= 2</label></location><location id="id1" x="-312" y="200"><name x="-320" y="216">Paralyzed</name><label kind="invariant" x="-320" y="232">clk_paralyzed_status &lt;= 2</label></location><location id="id2" x="-104" y="-56"><name x="-144" y="-48">Idle</name><label kind="invariant" x="-80" y="-48">clk_global &lt;= 4</label></location><init ref="id2"/><transition action=""><source ref="id2"/><target ref="id2"/><label kind="guard" x="-392" y="-480">pp_paralyze &gt; 0
+and
+clk_paralyze &gt; 4</label><label kind="synchronisation" x="-392" y="-512">paralyze_P2!</label><label kind="assignment" x="-392" y="-424">pp_paralyze = pp_paralyze - 1,
+clk_paralyze = 0,
+clk_global = 0</label><nail x="-400" y="-248"/><nail x="-400" y="-536"/><nail x="-192" y="-536"/><nail x="-192" y="-240"/></transition><transition action=""><source ref="id2"/><target ref="id2"/><label kind="guard" x="-96" y="-488">clk_atk &gt; 2</label><label kind="synchronisation" x="-96" y="-512">atk_P2?</label><label kind="assignment" x="-96" y="-464">clk_atk = 0,
+clk_global = 0</label><nail x="-104" y="-536"/><nail x="88" y="-536"/><nail x="88" y="-232"/></transition><transition action=""><source ref="id2"/><target ref="id2"/><label kind="guard" x="368" y="-192">pp_freeze &gt; 0
+and
+clk_freeze &gt; 3</label><label kind="synchronisation" x="264" y="-192">freeze_P2!</label><label kind="assignment" x="496" y="-192">pp_freeze = pp_freeze - 1,
+clk_freeze = 0,
+clk_global = 0</label><nail x="208" y="-192"/><nail x="696" y="-192"/><nail x="696" y="-56"/></transition><transition action=""><source ref="id1"/><target ref="id2"/><label kind="guard" x="-56" y="176">clk_paralyzed_status &gt;= 2</label><label kind="assignment" x="24" y="200">clk_global = 0</label><nail x="120" y="200"/><nail x="120" y="72"/><nail x="-32" y="72"/></transition><transition action=""><source ref="id0"/><target ref="id1"/><label kind="synchronisation" x="-768" y="176">paralyze_P1?</label><label kind="assignment" x="-768" y="208">clk_paralyzed_status = 0</label><nail x="-808" y="200"/></transition><transition action=""><source ref="id2"/><target ref="id1"/><label kind="synchronisation" x="-248" y="96">paralyze_P1?</label><label kind="assignment" x="-280" y="120">clk_paralyzed_status = 0</label><nail x="-104" y="120"/><nail x="-312" y="120"/></transition><transition action=""><source ref="id0"/><target ref="id2"/><label kind="guard" x="-784" y="-184">clk_strong_atk &gt;= 2</label><label kind="assignment" x="-784" y="-160">clk_global = 0</label><nail x="-808" y="-160"/><nail x="-344" y="-160"/></transition><transition action=""><source ref="id2"/><target ref="id0"/><label kind="guard" x="-600" y="-56">pp_strong_atk &gt; 0
+and
+clk_strong_atk &gt;= 3</label><label kind="synchronisation" x="-720" y="-56">strong_atk_P2!</label><label kind="assignment" x="-456" y="-56">pp_strong_atk = pp_strong_atk - 1,
+clk_strong_atk = 0</label></transition></template><template><name>Player_1</name><declaration>/// Player_1
+
+int pp_paralyze = 1; //power points : number of uses of the paralyze action
+int pp_freeze = 1; //power points : number of uses of the freeze action
+int pp_strong_atk = 1; //power points : number of uses of the strong attack action
+
+clock clk_strong_atk; //clock for the strong attack cooldown
+clock clk_freeze; //clock for the freeze cooldown
+clock clk_atk; //clock for the attack cooldown
+clock clk_paralyze; //clock for the paralyze cooldown
+//nb. A cooldown refers to the amount of time a user must wait before repeating a recently completed action. Cooldowns are often used in video games for balancing purposes.
+
+clock clk_paralyzed_status; //clock for the paralyze status duration
+
+//horloge forçant l'attaque
+clock clk_global;</declaration><location id="id3" x="456" y="664"><name x="448" y="680">Paralyzed</name><label kind="invariant" x="448" y="696">clk_paralyzed_status &lt;= 2</label></location><location id="id4" x="-48" y="360"><name x="-104" y="360">Tired</name><label kind="invariant" x="-192" y="376">clk_strong_atk &lt;= 2</label></location><location id="id5" x="792" y="360"><name x="752" y="368">Idle</name><label kind="invariant" x="816" y="368">clk_global &lt;= 4</label></location><init ref="id5"/><transition action=""><source ref="id5"/><target ref="id5"/><label kind="guard" x="480" y="-56">pp_paralyze &gt; 0
+and
+clk_paralyze &gt; 4</label><label kind="synchronisation" x="480" y="-80">paralyze_P1!</label><label kind="assignment" x="480" y="0">pp_paralyze = pp_paralyze - 1,
+clk_paralyze = 0,
+clk_global = 0</label><nail x="472" y="176"/><nail x="472" y="-88"/><nail x="720" y="-88"/><nail x="720" y="192"/></transition><transition action=""><source ref="id5"/><target ref="id5"/><label kind="guard" x="800" y="-48">clk_atk &gt; 2</label><label kind="synchronisation" x="800" y="-72">atk_P1!</label><label kind="assignment" x="800" y="-24">clk_atk = 0,
+clk_global = 0</label><nail x="792" y="-88"/><nail x="1032" y="-88"/><nail x="1032" y="152"/></transition><transition action=""><source ref="id5"/><target ref="id5"/><label kind="guard" x="1216" y="232">pp_freeze &gt; 0
+and
+clk_freeze &gt; 3</label><label kind="synchronisation" x="1112" y="232">freeze_P1!</label><label kind="assignment" x="1344" y="232">pp_freeze = pp_freeze - 1,
+clk_freeze = 0,
+clk_global = 0</label><nail x="1056" y="232"/><nail x="1544" y="232"/><nail x="1544" y="360"/></transition><transition action=""><source ref="id3"/><target ref="id5"/><label kind="guard" x="928" y="640">clk_paralyzed_status &gt;= 2</label><label kind="assignment" x="976" y="664">clk_global = 0</label><nail x="1120" y="664"/><nail x="1120" y="512"/><nail x="856" y="512"/></transition><transition action=""><source ref="id4"/><target ref="id3"/><label kind="synchronisation" x="32" y="640">paralyze_P2?</label><label kind="assignment" x="32" y="664">clk_paralyzed_status = 0</label><nail x="-48" y="664"/></transition><transition action=""><source ref="id5"/><target ref="id3"/><label kind="synchronisation" x="592" y="512">paralyze_P2?</label><label kind="assignment" x="560" y="536">clk_paralyzed_status = 0</label><nail x="792" y="536"/><nail x="456" y="536"/></transition><transition action=""><source ref="id4"/><target ref="id5"/><label kind="guard" x="8" y="224">clk_strong_atk &gt;= 2</label><label kind="assignment" x="8" y="248">clk_global = 0</label><nail x="-48" y="248"/><nail x="552" y="248"/></transition><transition action=""><source ref="id5"/><target ref="id4"/><label kind="guard" x="232" y="360">pp_strong_atk &gt; 0
+and
+clk_strong_atk &gt;= 3</label><label kind="synchronisation" x="112" y="360">strong_atk_P1!</label><label kind="assignment" x="368" y="360">pp_strong_atk = pp_strong_atk - 1,
+clk_strong_atk = 0</label><nail x="776" y="360"/></transition></template><template><name>Player_2_Manager</name><declaration>/// Player_2_Manager
+
+int hp = 10; //health points, the remaining life point of the player
+
+clock clk_frozen_status; //clock for the frozen status duration</declaration><location id="id6" x="-24" y="-464"><name x="-34" y="-494">Lost</name><committed/></location><location id="id7" x="-344" y="-224"><committed/></location><location id="id8" x="320" y="-224"><committed/></location><location id="id9" x="-400" y="256"><name x="-448" y="272">Frozen</name><label kind="invariant" x="-544" y="288">clk_frozen_status &lt;= 3</label></location><location id="id10" x="312" y="256"><name x="320" y="272">Idle</name></location><init ref="id10"/><transition action=""><source ref="id8"/><target ref="id6"/><label kind="guard" x="136" y="-384">hp &lt;= 0</label></transition><transition action=""><source ref="id7"/><target ref="id6"/><label kind="guard" x="-244" y="-374">hp &lt;= 0</label></transition><transition action=""><source ref="id10"/><target ref="id8"/><label kind="synchronisation" x="560" y="-96">atk_P1?</label><label kind="assignment" x="544" y="-72">hp = hp - 1</label><nail x="624" y="256"/><nail x="624" y="-224"/></transition><transition action=""><source ref="id10"/><target ref="id8"/><label kind="synchronisation" x="344" y="-96">strong_atk_P1?</label><label kind="assignment" x="368" y="-72">hp = hp - 3</label><nail x="312" y="120"/><nail x="448" y="120"/><nail x="448" y="-120"/><nail x="320" y="-120"/></transition><transition action=""><source ref="id8"/><target ref="id10"/><label kind="guard" x="120" y="-72">hp &gt; 0</label><nail x="176" y="-224"/><nail x="176" y="80"/></transition><transition action=""><source ref="id7"/><target ref="id9"/><label kind="guard" x="-208" y="-72">hp &gt; 0</label><nail x="-224" y="-224"/><nail x="-224" y="72"/></transition><transition action=""><source ref="id9"/><target ref="id7"/><label kind="synchronisation" x="-488" y="-72">strong_atk_P1?</label><label kind="assignment" x="-488" y="-48">hp = hp - 4</label><nail x="-400" y="128"/><nail x="-496" y="128"/><nail x="-496" y="-88"/><nail x="-344" y="-88"/></transition><transition action=""><source ref="id9"/><target ref="id7"/><label kind="synchronisation" x="-696" y="-72">atk_P1?</label><label kind="assignment" x="-696" y="-48">hp = hp - 2</label><nail x="-704" y="256"/><nail x="-704" y="-224"/></transition><transition action=""><source ref="id10"/><target ref="id9"/><label kind="synchronisation" x="-72" y="368">freeze_P1?</label><label kind="assignment" x="-104" y="392">clk_frozen_status = 0</label><nail x="152" y="392"/><nail x="-208" y="392"/></transition><transition action=""><source ref="id9"/><target ref="id10"/><label kind="guard" x="-104" y="226">clk_frozen_status &gt;= 3</label></transition></template><template><name>Player_1_Manager</name><declaration>/// Player_1_Manager
+
+int hp = 10; //health points, the remaining life point of the player
+
+clock clk_frozen_status; //clock for the frozen status duration</declaration><location id="id11" x="-136" y="-504"><name x="-152" y="-544">Lost</name><committed/></location><location id="id12" x="272" y="-296"><committed/></location><location id="id13" x="-528" y="-288"><committed/></location><location id="id14" x="-520" y="192"><name x="-568" y="208">Frozen</name><label kind="invariant" x="-664" y="224">clk_frozen_status &lt;= 3</label></location><location id="id15" x="312" y="192"><name x="312" y="208">Idle</name></location><init ref="id15"/><transition action=""><source ref="id12"/><target ref="id11"/><label kind="guard" x="40" y="-440">hp &lt;= 0</label></transition><transition action=""><source ref="id13"/><target ref="id11"/><label kind="guard" x="-392" y="-426">hp &lt;= 0</label></transition><transition action=""><source ref="id15"/><target ref="id12"/><label kind="synchronisation" x="568" y="-168">atk_P2?</label><label kind="assignment" x="552" y="-144">hp = hp - 1</label><nail x="632" y="192"/><nail x="632" y="-296"/></transition><transition action=""><source ref="id15"/><target ref="id12"/><label kind="synchronisation" x="344" y="-168">strong_atk_P2?</label><label kind="assignment" x="376" y="-144">hp = hp - 3</label><nail x="312" y="56"/><nail x="456" y="56"/><nail x="456" y="-184"/><nail x="272" y="-184"/></transition><transition action=""><source ref="id12"/><target ref="id15"/><label kind="guard" x="8" y="-136">hp &gt; 0</label><nail x="56" y="-296"/><nail x="56" y="-24"/></transition><transition action=""><source ref="id13"/><target ref="id14"/><label kind="guard" x="-360" y="-152">hp &gt; 0</label><nail x="-368" y="-288"/><nail x="-368" y="-24"/></transition><transition action=""><source ref="id14"/><target ref="id13"/><label kind="synchronisation" x="-800" y="-160">atk_P2?</label><label kind="assignment" x="-800" y="-136">hp = hp - 2</label><nail x="-808" y="192"/><nail x="-808" y="-288"/></transition><transition action=""><source ref="id14"/><target ref="id13"/><label kind="synchronisation" x="-648" y="-160">strong_atk_P2?</label><label kind="assignment" x="-648" y="-136">hp = hp - 4</label><nail x="-520" y="64"/><nail x="-656" y="64"/><nail x="-656" y="-176"/><nail x="-528" y="-176"/></transition><transition action=""><source ref="id15"/><target ref="id14"/><label kind="synchronisation" x="-152" y="296">freeze_P2?</label><label kind="assignment" x="-184" y="320">clk_frozen_status = 0</label><nail x="64" y="320"/><nail x="-312" y="320"/></transition><transition action=""><source ref="id14"/><target ref="id15"/><label kind="guard" x="-192" y="168">clk_frozen_status &gt;= 3</label><nail x="-504" y="192"/></transition></template><system>// Place template instantiations here.
+
+p1 = Player_1();
+p2 = Player_2();
+
+p1m = Player_1_Manager();
+p2m = Player_2_Manager();
+
+// List one or more processes to be composed into a system.
+system p1, p2, p1m, p2m;</system></nta>
