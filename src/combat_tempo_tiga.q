@@ -1,7 +1,7 @@
 //This file was generated from (Academic) UPPAAL 4.1.4 (rev. 5535), March 2014
 
 /*
-on a essay\u00e9 de v\u00e9rifier que le joueur 1 puisse utiliser certaines de ses actions dans l'ordre avant de gagner le combat.
+On a essay\u00e9 de v\u00e9rifier que le joueur 1 puisse utiliser certaines de ses actions dans l'ordre avant de gagner le combat.
 */
 p1.pp_strong_atk == 0 --> p1.pp_paralyze == 0 --> p1.pp_freeze == 0 --> p2m.Lost
 
@@ -49,11 +49,10 @@ Mort du joueur 2 alors qu'il a toute sa vie
 E<> p2m.Lost and p2m.hp > 0
 
 /*
-A<> p1m.Lost or p2m.Lost
 Dans tous les cas un des joueurs finit par perdre
 [SAT] -> trop long
 */
-//NO_QUERY
+A<> p1m.Lost or p2m.Lost
 
 /*
 victoire du joueur 1 sans utiliser de atk sp\u00e9cial
@@ -102,11 +101,10 @@ Un cas o\u00f9 le joueur 1 gagne avec un point de vie restant
 E<> p2m.Lost and p1m.hp == 1
 
 /*
-E<> not p1m.Lost and not p2m.Lost and deadlock
 Possible de finir sur un deadlock n'\u00e9tant la victoire d'aucun des joueurs
 [NOT SAT] -> trop long
 */
-//NO_QUERY
+E<> not p1m.Lost and not p2m.Lost and deadlock
 
 /*
 Le joueur 1 gagne et pas l'autre
